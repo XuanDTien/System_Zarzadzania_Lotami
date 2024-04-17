@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System_Zarzadzania_Lotami.Data;
 using System_Zarzadzania_Lotami.Data.DTO;
-using System_Zarzadzania_Lotami.Data.Entity;
 using System_Zarzadzania_Lotami.Services;
 
 namespace System_Zarzadzania_Lotami.Controllers
@@ -33,11 +30,14 @@ namespace System_Zarzadzania_Lotami.Controllers
         [HttpPost]
         public ActionResult<FlightDTO> PostFlight([FromBody] FlightDTO flightDTO)
         {
-            var flight = _flightService.CreateFlight(flightDTO);
-            if(flight == null)
+
+            var (isValid, errorMessage) = _flightService.ValidateFlightDTO(flightDTO);
+            if (!isValid)
             {
-                return BadRequest("Location or plane type is invalid");
+                return BadRequest(errorMessage);
             }
+
+            var flight = _flightService.CreateFlight(flightDTO);
 
             return Ok(flight);
         }
@@ -45,6 +45,12 @@ namespace System_Zarzadzania_Lotami.Controllers
         [HttpPut("{id}")]
         public IActionResult PutFlight(int id, [FromBody] FlightDTO flightDTO)
         {
+            var (isValid, errorMessage) = _flightService.ValidateFlightDTO(flightDTO, id);
+            if (!isValid)
+            {
+                return BadRequest(errorMessage);
+            }
+
             flightDTO.Id = id;
             var flight = _flightService.UpdateFlight(flightDTO);
             if (flight == null)

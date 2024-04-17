@@ -112,5 +112,44 @@ namespace System_Zarzadzania_Lotami.Services
             }
             return planeType.Id;
         }
+
+        public (bool isValid, string errorMessage) ValidateFlightDTO(FlightDTO flightDTO, int? existingFlightId = null)
+        {
+            var isUnique = existingFlightId.HasValue
+            ? IsFlightNumberUnique(flightDTO.FlightNumber, existingFlightId.Value)
+            : IsFlightNumberUnique(flightDTO.FlightNumber);
+
+
+            if (IsFlightNumberUnique(flightDTO.FlightNumber))
+            {
+                if (flightDTO.DepartureDate >= DateTime.Now)
+                {
+                    if (flightDTO.DepartureFrom.All(c => char.IsLetter(c) || char.IsWhiteSpace(c)) && 
+                        flightDTO.ArrivalTo.All(c => char.IsLetter(c) || char.IsWhiteSpace(c)))
+                    {
+                        return (true, null);
+                    }
+                    else
+                    {
+                        return (false, "Departure and Arrival locations must contain only letters.");
+                    }
+                }
+                else
+                {
+                    return (false, "Departure date cannot be in the past.");
+                }
+            }
+            else
+            {
+                return (false, "Flight number must be unique.");
+            }
+        }
+        public bool IsFlightNumberUnique(int flightNumber, int? existingFlightId = null)
+        {
+            if(existingFlightId.HasValue)
+                return !_context.Flights.Any(f => f.FlightNumber == flightNumber && f.Id != existingFlightId.Value);
+
+            return !_context.Flights.Any(f => f.FlightNumber == flightNumber);
+        }
     }
 }

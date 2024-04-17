@@ -10,5 +10,6 @@ namespace System_Zarzadzania_Lotami.Services
         FlightDTO CreateFlight(FlightDTO flight);
         FlightDTO UpdateFlight(FlightDTO flight);
         void DeleteFlight(int id);
+        (bool isValid, string errorMessage) ValidateFlightDTO(FlightDTO flightDTO, int? existingFlightId = null);
     }
 }
