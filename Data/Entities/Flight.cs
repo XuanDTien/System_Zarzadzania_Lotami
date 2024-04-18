@@ -12,8 +12,11 @@ namespace System_Zarzadzania_Lotami.Data.Entity
         public int FlightNumber { get; set; }
         [Required]
         public DateTime DepartureDate { get; set; }
+        [Required]
         public int DepartureFrom { get; set; }
+        [Required]
         public int ArrivalTo { get; set; }
+        [Required]
         public int PlaneTypeId { get; set; }
 
         public Location DepartureLocation { get; set; }

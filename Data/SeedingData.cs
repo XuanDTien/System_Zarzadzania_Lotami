@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
+using System_Zarzadzania_Lotami.Data.Entities;
 using System_Zarzadzania_Lotami.Data.Entity;
 
 namespace System_Zarzadzania_Lotami.Data
@@ -15,6 +16,10 @@ namespace System_Zarzadzania_Lotami.Data
 
         public void Seed()
         {
+            _modelBuilder.Entity<User>().HasData(
+                new User { Username = "Admin", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("admin", 13)}
+            );
+
             _modelBuilder.Entity<Location>().HasData(
             new Location { Id = 1, CityName = "New York" },
             new Location { Id = 2, CityName = "Warsaw" },
