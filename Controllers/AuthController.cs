@@ -12,25 +12,20 @@ namespace System_Zarzadzania_Lotami.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthController(IAuthService authService, IOptions<JwtSettings> jwtSettings) : ControllerBase
     {
-        private readonly JwtSettings _jwtSettings;
-        private readonly AuthService _authService;
-
-        public AuthController(IOptions<JwtSettings> jwtSettings)
-        {
-            _jwtSettings = jwtSettings.Value;
-        }
+        private readonly JwtSettings _jwtSettings = jwtSettings.Value;
+        private readonly IAuthService _authService = authService;
 
         [HttpPost("authenticate")]
-        public async Task<ActionResult> Authenticate([FromBody] User userLogin)
+        public async Task<ActionResult> Authenticate([FromBody] User user)
         {
-            if (!await _authService.ValidateCredentials(userLogin.Username, userLogin.Password))
+            if (!await _authService.ValidateCredentials(user.Username, user.Password))
             {
                 return BadRequest(new { message = "Username or password is incorrect" });
             }
 
-            var token = GenerateJwtToken(userLogin.Username);
+            var token = GenerateJwtToken(user.Username);
             return Ok(new { token });
         }
 
@@ -42,7 +37,7 @@ namespace System_Zarzadzania_Lotami.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                new Claim(ClaimTypes.Name, username)
+                new(ClaimTypes.Name, username)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpireMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

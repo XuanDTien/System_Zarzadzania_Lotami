@@ -5,21 +5,12 @@ using System_Zarzadzania_Lotami.Data.Entity;
 
 namespace System_Zarzadzania_Lotami.Data
 {
-    public class SeedingData
+    public class SeedingData(ModelBuilder modelBuilder)
     {
-        private readonly ModelBuilder _modelBuilder;
-
-        public SeedingData(ModelBuilder modelBuilder)
-        {
-            _modelBuilder = modelBuilder;
-        }
+        private readonly ModelBuilder _modelBuilder = modelBuilder;
 
         public void Seed()
         {
-            _modelBuilder.Entity<User>().HasData(
-                new User { Username = "Admin", Password = BCrypt.Net.BCrypt.EnhancedHashPassword("admin", 13)}
-            );
-
             _modelBuilder.Entity<Location>().HasData(
             new Location { Id = 1, CityName = "New York" },
             new Location { Id = 2, CityName = "Warsaw" },
@@ -62,6 +53,11 @@ namespace System_Zarzadzania_Lotami.Data
                 PlaneTypeId = 2
             }
            );
+
+            _modelBuilder.Entity<User>().HasData(
+             new User { Username = "admin", Password = BCrypt.Net.BCrypt.HashPassword("admin", 13) }
+             );
+
         }
     }
 }

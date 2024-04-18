@@ -5,18 +5,12 @@ using System_Zarzadzania_Lotami.Data.Entity;
 
 namespace System_Zarzadzania_Lotami.Data
 {
-    public class FlightSystemContext : DbContext
+    public class FlightSystemContext(DbContextOptions<FlightSystemContext> options) : DbContext(options)
     {
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<PlaneType> Types { get; set; }
         public DbSet<User> Users { get; set; }
-        public FlightSystemContext(DbContextOptions<FlightSystemContext> options) : base(options) { }
-
-/*        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseInMemoryDatabase("FlightDataBase");
-        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

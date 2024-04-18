@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System_Zarzadzania_Lotami.Data.DTO;
 using System_Zarzadzania_Lotami.Services;
 
@@ -11,12 +12,14 @@ namespace System_Zarzadzania_Lotami.Controllers
         private readonly IFlightService _flightService = flightService;
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult<IEnumerable<FlightDTO>> GetFlights()
         {
             return Ok(_flightService.GetFlights());
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public ActionResult<FlightDTO> GetFlight(int id)
         {
             var flight = _flightService.GetFlightById(id);
@@ -28,9 +31,9 @@ namespace System_Zarzadzania_Lotami.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult<FlightDTO> PostFlight([FromBody] FlightDTO flightDTO)
         {
-
             var (isValid, errorMessage) = _flightService.ValidateFlightDTO(flightDTO);
             if (!isValid)
             {
@@ -43,6 +46,7 @@ namespace System_Zarzadzania_Lotami.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult PutFlight(int id, [FromBody] FlightDTO flightDTO)
         {
             var (isValid, errorMessage) = _flightService.ValidateFlightDTO(flightDTO, id);
@@ -60,6 +64,7 @@ namespace System_Zarzadzania_Lotami.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult DeleteFlight(int id)
         {
             var flight = _flightService.GetFlightById(id);

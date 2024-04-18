@@ -19,6 +19,7 @@ namespace System_Zarzadzania_Lotami.Services
             if (user == null)
                 return false;
 
+            Console.WriteLine(user.Password +"  .... "+ user.Username);
             return BCrypt.Net.BCrypt.Verify(password, user.Password);
         }
     }
