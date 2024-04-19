@@ -1,0 +1,34 @@
+<div class="main-body-container">
+  <div class="text-block">
+    <h1>Flight Control System.</h1>
+    <p>
+      Welcome to the Flight Control Dashboard
+      Effortlessly monitor and manage flights with real-time schedules at your fingertips. Explore more below.
+    </p>
+  </div>
+  <div class="image-block">
+    <img src="../../assets/home_bg.svg" alt="Image by storyset">
+  </div>
+</div>
+<div class="table">
+  <table>
+    <thead>
+      <tr>
+        <th>Flight Number</th>
+        <th>Departure Date</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Plane Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let flight of flightsList">
+        <td>{{ flight.flightNumber }}</td>
+        <td>{{ flight.departureDate | date: 'yyyy-MM-dd HH:mm' }}</td>
+        <td>{{ flight.departureFrom }}</td>
+        <td>{{ flight.arrivalTo }}</td>
+        <td>{{ flight.planeType }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,35 @@
+@font-face{
+    font-family: "QanelasSoft-UL";
+    src: url(./assets/QanelasSoftDEMO-UltraLight.otf);
+}
+
+@font-face{
+    font-family: "QanelasSoft-EB";
+    src: url(./assets/QanelasSoftDEMO-ExtraBold.otf);
+}
+
+@font-face{
+    font-family: "QanelasSoft-RE";
+    src: url(./assets/QanelasSoftRegular.otf);
+}
+
+@font-face{
+    font-family: "QanelasSoft-ME";
+    src: url(./assets/QanelasSoftMedium.otf);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --lotblue: #1A3171;
+}

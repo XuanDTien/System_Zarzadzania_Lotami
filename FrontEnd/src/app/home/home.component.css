@@ -1,0 +1,51 @@
+.main-body-container, .table {
+  display: flex;
+  min-height: 50vh;
+  margin: 0 10vw;
+}
+
+.text-block, .image-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+  .text-block h1 {
+    font-family: "QanelasSoft-UL";
+    font-size: 3rem;
+  }
+  .text-block p {
+    font-family: "QanelasSoft-UL";
+    font-size: 1.5rem;
+  }
+
+.image-block {
+}
+
+.table {
+  display: flex;
+  margin: 7vh 10vw;
+  font-family: "QanelasSoft-ME";
+  color: white;
+  background-color: var(--lotblue);
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: left;
+  justify-content: center;
+}
+
+  .table table {
+    width: 100%;
+    border-collapse: collapse; 
+  }
+  .table th, .table td {
+    text-align: left; 
+    padding: 10px; 
+    max-height: 50px;
+  }
+
+  .table th{
+      padding-top: 40px;
+  }
