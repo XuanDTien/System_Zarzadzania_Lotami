@@ -9,6 +9,18 @@ using System_Zarzadzania_Lotami.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Add cors policy
+builder.Services.AddCors(options =>
+    options.AddPolicy("AngularPolicy", cfg =>
+    {
+        cfg.AllowAnyHeader();
+        cfg.AllowAnyMethod();
+        cfg.WithOrigins(
+        builder.Configuration["AllowedCORS"]
+        );
+    })
+);
+
 //Database
 builder.Services.AddDbContext<FlightSystemContext>(
     options =>
@@ -101,6 +113,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AngularPolicy");
 
 app.UseHttpsRedirection();
 
