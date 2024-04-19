@@ -49,3 +49,47 @@
   .table th{
       padding-top: 40px;
   }
+
+
+.sticky-button-container {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 1000; 
+}
+
+.sticky-button {
+  color: white;
+  border-radius: 100%;
+  cursor: pointer;
+  font-size: 30px;
+  font-family: Arial Black;
+  width: 74px;
+  height: 69px;
+  border-width: 0px;
+  border-color: rgba(255, 255, 255, 1);
+  font-weight: bold;
+  border-top-left-radius: 41px;
+  border-top-right-radius: 41px;
+  border-bottom-left-radius: 41px;
+  border-bottom-right-radius: 41px;
+  text-shadow: 4px 3px 4px rgba(0, 0, 0, 1);
+  background: var(--lotblue);
+}
+
+  .sticky-button:hover {
+    background-color: white;
+    color: var(--lotblue);
+    border: solid 5px;
+  }
+
+  .action-button{
+      background: none;
+      border: none;
+      color: white;
+      padding: 0 3px;
+  }
+
+  .action-button:hover{
+      color: black;
+  }

@@ -10,25 +10,41 @@
     <img src="../../assets/home_bg.svg" alt="Image by storyset">
   </div>
 </div>
-<div class="table">
-  <table>
-    <thead>
-      <tr>
-        <th>Flight Number</th>
-        <th>Departure Date</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Plane Type</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let flight of flightsList">
-        <td>{{ flight.flightNumber }}</td>
-        <td>{{ flight.departureDate | date: 'yyyy-MM-dd HH:mm' }}</td>
-        <td>{{ flight.departureFrom }}</td>
-        <td>{{ flight.arrivalTo }}</td>
-        <td>{{ flight.planeType }}</td>
-      </tr>
-    </tbody>
-  </table>
+
+<div *ngIf="isLoggedIn" class="sticky-button-container">
+  <button class="sticky-button" title="Add new flight" (click)="addFlight()">+</button>
 </div>
+
+<div *ngIf="flightsList.length === 0; else HomeList" class="loading-text">
+  Loading ...
+</div>
+
+<ng-template #HomeList>
+  <div class="table">
+    <table>
+      <thead>
+        <tr>
+          <th>Flight Number</th>
+          <th>Departure Date</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Plane Type</th>
+          <th *ngIf="isLoggedIn">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let flight of flightsList">
+          <td>{{ flight.flightNumber }}</td>
+          <td>{{ flight.departureDate | date: 'yyyy-MM-dd HH:mm' }}</td>
+          <td>{{ flight.departureFrom }}</td>
+          <td>{{ flight.arrivalTo }}</td>
+          <td>{{ flight.planeType }}</td>
+          <td *ngIf="isLoggedIn">
+            <button class="material-icons-outlined action-button" title="Edit" (click)="editFlight(flight)">edit</button>
+            <button class="material-icons-outlined action-button" title="Delete" (click)="deleteFlight(flight.id)">delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </ng-template>

@@ -1,0 +1,55 @@
+<div class="modal-content">
+  <h1>{{ isEditMode ? 'Edit Flight' : 'Add Flight' }}</h1>
+  <form [formGroup]="flightForm" (ngSubmit)="onSubmit(flightForm)">
+    <mat-form-field>
+      <mat-label>Flight Number</mat-label>
+      <input matInput formControlName="flightNumber">
+      <mat-error *ngIf="flightForm?.get('flightNumber')?.hasError('required')">
+        Flight number is required.
+      </mat-error>
+      <mat-error *ngIf="flightForm?.get('flightNumber')?.hasError('asyncValidation')">
+        Flight number must be unique.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Departure Date</mat-label>
+      <input type="datetime-local" matInput formControlName="departureDate" min="{{ todate }}">
+      <mat-error *ngIf="flightForm?.get('departureDate')?.hasError('required')">
+        Departure date is required.
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Departure From</mat-label>
+      <input matInput formControlName="departureFrom">
+      <mat-error *ngIf="flightForm?.get('flightNumber')?.hasError('required')">
+        Departure location is required.
+      </mat-error>
+      <mat-error *ngIf="flightForm?.get('departureFrom')?.hasError('pattern')">
+        The location cannot contain numbers or special symbols
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Arrival To</mat-label>
+      <input matInput formControlName="arrivalTo">
+      <mat-error *ngIf="flightForm?.get('flightNumber')?.hasError('required')">
+        Arrival location is required.
+      </mat-error>
+      <mat-error *ngIf="flightForm?.get('arrivalTo')?.hasError('pattern')">
+        The location cannot contain numbers or special symbols
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Plane Type</mat-label>
+      <input matInput formControlName="planeType">
+    </mat-form-field>
+
+    <div *ngIf="serverError" class="error-message">{{ serverError }}</div>
+
+    <button mat-raised-button style="background-color: var(--lotblue); color: white" type="submit">Submit</button>
+  </form>
+</div>
