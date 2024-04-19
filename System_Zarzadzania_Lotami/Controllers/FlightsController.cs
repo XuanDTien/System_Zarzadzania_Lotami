@@ -47,15 +47,15 @@ namespace System_Zarzadzania_Lotami.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public IActionResult PutFlight(int id, [FromBody] FlightDTO flightDTO)
+        public IActionResult PutFlight(int id,[FromBody] FlightDTO flightDTO)
         {
-            var (isValid, errorMessage) = _flightService.ValidateFlightDTO(flightDTO, id);
+            flightDTO.Id = id;
+            var (isValid, errorMessage) = _flightService.ValidateFlightDTO(flightDTO);
             if (!isValid)
             {
                 return BadRequest(errorMessage);
             }
 
-            flightDTO.Id = id;
             var flight = _flightService.UpdateFlight(flightDTO);
             if (flight == null)
                 return BadRequest();

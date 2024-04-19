@@ -112,14 +112,14 @@ namespace System_Zarzadzania_Lotami.Services
             return planeType.Id;
         }
 
-        public (bool isValid, string errorMessage) ValidateFlightDTO(FlightDTO flightDTO, int? existingFlightId = null)
+        public (bool isValid, string errorMessage) ValidateFlightDTO(FlightDTO flightDTO)
         {
-            var isUnique = existingFlightId.HasValue
-            ? IsFlightNumberUnique(flightDTO.FlightNumber, existingFlightId.Value)
+            var isUnique = flightDTO.Id > 0
+            ? IsFlightNumberUnique(flightDTO.FlightNumber, flightDTO.Id)
             : IsFlightNumberUnique(flightDTO.FlightNumber);
 
 
-            if (IsFlightNumberUnique(flightDTO.FlightNumber))
+            if (isUnique)
             {
                 if (flightDTO.DepartureDate >= DateTime.Now)
                 {
