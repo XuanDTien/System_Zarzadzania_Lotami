@@ -1,7 +1,5 @@
 # System_Zarzadzania_Lotami
 
-# System Zarządzania Lotami
-
 This project implements a basic flight control system using Angular and ASP.NET. This is a basic implementation for demonstration purposes only.
 
 ## Prerequisites
@@ -42,7 +40,7 @@ This project implements a basic flight control system using Angular and ASP.NET.
 
 ## Functionality:
 
-###Once logged in, you'll be able to perform the following actions:
+### Once logged in, you'll be able to perform the following actions:
 - Add Flights: Create new flight.
 - Edit Flights: Modify existing flight details.
 - Delete Flights: Remove flights from the system.
