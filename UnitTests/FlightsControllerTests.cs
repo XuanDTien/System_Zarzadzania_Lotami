@@ -96,7 +96,7 @@ namespace UnitTest
                 PlaneType = "Boeing"
             };
 
-            _ = mockFlightService.Setup(service => service.ValidateFlightDTO(It.IsAny<FlightDTO>(), null)).Returns((false, "Flight number must be unique."));
+            _ = mockFlightService.Setup(service => service.ValidateFlightDTO(It.IsAny<FlightDTO>())).Returns((false, "Flight number must be unique."));
 
             ActionResult<FlightDTO> result = controller.PostFlight(flightDTO);
 
@@ -116,7 +116,7 @@ namespace UnitTest
                 PlaneType = "Embraer"
             };
 
-            _ = _mockFlightService.Setup(service => service.ValidateFlightDTO(It.IsAny<FlightDTO>(), null)).Returns((true, string.Empty));
+            _ = _mockFlightService.Setup(service => service.ValidateFlightDTO(It.IsAny<FlightDTO>())).Returns((true, string.Empty));
             _ = _mockFlightService.Setup(service => service.CreateFlight(flightDTO)).Returns(flightDTO);
 
             ActionResult<FlightDTO> result = _controller.PostFlight(flightDTO);
@@ -139,7 +139,7 @@ namespace UnitTest
                 PlaneType = "Boeing"
             };
 
-            _ = _mockFlightService.Setup(service => service.ValidateFlightDTO(flightDTO, 1)).Returns((true, string.Empty));
+            _ = _mockFlightService.Setup(service => service.ValidateFlightDTO(flightDTO)).Returns((true, string.Empty));
             _ = _mockFlightService.Setup(service => service.UpdateFlight(flightDTO)).Returns(flightDTO);
 
             OkObjectResult? actionResult = _controller.PutFlight(1, flightDTO) as OkObjectResult;
